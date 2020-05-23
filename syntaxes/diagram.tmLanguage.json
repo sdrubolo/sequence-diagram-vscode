@@ -1,0 +1,473 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "diagram",
+  "patterns": [{ "include": "#flow" }],
+  "repository": {
+    "flow": {
+      "patterns": [
+        { "include": "#comments" },
+        {
+          "begin": "\\btitle\\b",
+          "end": "$",
+          "beginCaptures": { "0": { "name": "keyword.control.diagram" } },
+          "patterns": [{ "include": "#txt" }]
+        },
+        {
+          "begin": "\\bparticipant\\b",
+          "end": "$",
+          "beginCaptures": { "0": { "name": "keyword.control.diagram" } },
+          "patterns": [
+            {
+              "match": "(.+)(\\[)(.*)(\\])(.*)",
+              "captures": {
+                "1": { "patterns": [{ "include": "#entity" }] },
+                "2": { "name": "meta.brace.square.diagram" },
+                "3": { "patterns": [{ "include": "#txt" }] },
+                "4": { "name": "meta.brace.square.diagram" },
+                "5": { "patterns": [{ "include": "#comments" }] }
+              }
+            },
+            {
+              "match": "(.+)",
+              "captures": {
+                "0": { "patterns": [{ "include": "#entity" }] }
+              }
+            }
+          ]
+        },
+        {
+          "begin": "\\balt\\b",
+          "end": "$",
+          "beginCaptures": { "0": { "name": "keyword.control.diagram" } },
+          "patterns": [
+            {
+              "match": "(.+)",
+              "captures": {
+                "0": { "patterns": [{ "include": "#txt" }] }
+              }
+            }
+          ]
+        },
+        {
+          "begin": "\\bopt\\b",
+          "end": "$",
+          "beginCaptures": { "0": { "name": "keyword.control.diagram" } },
+          "patterns": [
+            {
+              "match": "(.+)",
+              "captures": {
+                "0": { "patterns": [{ "include": "#txt" }] }
+              }
+            }
+          ]
+        },
+        {
+          "begin": "\\bloop\\b",
+          "end": "$",
+          "beginCaptures": { "0": { "name": "keyword.control.diagram" } },
+          "patterns": [
+            {
+              "match": "(.+)",
+              "captures": {
+                "0": { "patterns": [{ "include": "#txt" }] }
+              }
+            }
+          ]
+        },
+        {
+          "begin": "\\belse\\b",
+          "end": "$",
+          "beginCaptures": { "0": { "name": "keyword.control.diagram" } },
+          "patterns": [
+            {
+              "match": "(.+)",
+              "captures": {
+                "0": { "patterns": [{ "include": "#txt" }] }
+              }
+            }
+          ]
+        },
+        {
+          "begin": "\\.\\.\\.",
+          "end": "\\.\\.\\.",
+          "beginCaptures": { "0": { "name": "keyword.control.diagram" } },
+          "endCaptures": { "0": { "name": "keyword.control.diagram" } },
+          "patterns": [
+            {
+              "match": "(.(?!\\.\\.\\.))+",
+              "captures": {
+                "0": { "patterns": [{ "include": "#txt" }] }
+              }
+            }
+          ]
+        },
+        {
+          "begin": "\\bdestroy\\b",
+          "end": "$",
+          "beginCaptures": { "0": { "name": "keyword.control.diagram" } },
+          "patterns": [
+            {
+              "match": "(.+)",
+              "captures": {
+                "0": { "patterns": [{ "include": "#entity" }] }
+              }
+            }
+          ]
+        },
+        {
+          "begin": "\\bset\\b",
+          "end": "\\bto\\b",
+          "beginCaptures": { "0": { "name": "keyword.control.diagram" } },
+          "endCaptures": { "0": { "name": "keyword.control.diagram" } },
+          "patterns": [
+            {
+              "match": "(.(?<![to]))+",
+              "captures": {
+                "0": { "name": "meta.class.identifier.diagram" }
+              }
+            }
+          ]
+        },
+        {
+          "match": "((.(?<!\\[))+)((\\[)(.*)(\\]))?(?<!-)(--X|-X|--X-|-X-|-->\\*|->\\*|-->-|->-|-->\\+|->\\+|-->|->)((.(?<![\\[\\+-]))+)((\\[)(.*)(\\]))?\\s*:\\s*(.*)",
+          "captures": {
+            "1": { "patterns": [{ "include": "#entity" }] },
+            "4": { "name": "meta.brace.square.diagram" },
+            "5": { "patterns": [{ "include": "#txt" }] },
+            "6": { "name": "meta.brace.square.diagram" },
+            "7": { "name": "keyword.control.diagram" },
+            "8": { "patterns": [{ "include": "#entity" }] },
+            "11": { "name": "meta.brace.square.diagram" },
+            "12": { "patterns": [{ "include": "#txt" }] },
+            "13": { "name": "meta.brace.square.diagram" },
+            "14": { "patterns": [{ "include": "#txt" }] }
+          }
+        },
+        { "include": "#numbers" },
+        {
+          "match": "((note)\\s+(right\\s+of|left\\s+of|over))(.+):(.+)$",
+          "captures": {
+            "1": { "name": "keyword.control.diagram" },
+            "4": { "patterns": [{ "include": "#entity" }] },
+            "5": { "patterns": [{ "include": "#txt" }] }
+          }
+        },
+        {
+          "begin": "((note)\\s+(right\\s+of|left\\s+of|over))(.+)$",
+          "end": "end\\s+note",
+          "beginCaptures": {
+            "1": { "name": "keyword.control.diagram" },
+            "4": { "patterns": [{ "include": "#entity" }] }
+          },
+          "endCaptures": { "0": { "name": "keyword.control.diagram" } },
+          "patterns": [
+            {
+              "match": ".+",
+              "captures": { "0": { "patterns": [{ "include": "#txt" }] } }
+            }
+          ]
+        },
+
+        {
+          "begin": "header\\s+for",
+          "end": "$",
+          "beginCaptures": { "0": { "name": "keyword.control.diagram" } },
+          "patterns": [{ "include": "#entity" }]
+        },
+        {
+          "begin": "group",
+          "end": "$",
+          "beginCaptures": { "0": { "name": "keyword.control.diagram" } },
+          "patterns": [
+            {
+              "match": "(:)(.+)",
+              "captures": {
+                "2": { "patterns": [{ "include": "#txt" }] }
+              }
+            }
+          ]
+        },
+        {
+          "begin": "include",
+          "end": "$",
+          "beginCaptures": { "0": { "name": "keyword.control.diagram" } },
+          "patterns": [
+            {
+              "match": "(.+)({)(.*)(})",
+              "captures": {
+                "1": { "patterns": [{ "include": "#txt" }] },
+                "2": { "name": "meta.brace.curly.diagram" },
+
+                "3": {
+                  "patterns": [
+                    {
+                      "include": "#assignList"
+                    }
+                  ]
+                },
+                "4": { "name": "meta.brace.curly.diagram" }
+              }
+            }
+          ]
+        },
+        {
+          "match": "end\\s+group",
+          "name": "keyword.control.diagram"
+        },
+        {
+          "begin": "data",
+          "end": "end\\s+data",
+          "beginCaptures": { "0": { "name": "keyword.control.diagram" } },
+          "endCaptures": { "0": { "name": "keyword.control.diagram" } },
+          "patterns": [
+            { "include": "#comments" },
+            { "include": "#squareBraces" },
+            { "include": "#string" },
+            { "include": "#curlyBraces" },
+            { "include": "#numbers" },
+            { "include": "#boolean" },
+            { "include": "#nullValue" },
+            {
+              "match": ",",
+              "name": "meta.delimiter.object.comma.diagram"
+            },
+            {
+              "match": "application/x-www-form-urlencoded|application/json",
+              "name": "constant.language.diagram"
+            },
+            {
+              "match": "([A-Z](_)?)+(?![A-Z_=]+)",
+              "captures": {
+                "0": { "name": "meta.definition.variable.diagram" }
+              }
+            },
+            {
+              "match": "([A-Za-z](_|.)?)+(?=\\s*=)",
+              "captures": {
+                "0": { "name": "meta.class.identifier.diagram" }
+              }
+            }
+          ]
+        },
+        { "include": "#squareBraces" },
+        { "include": "#curlyBraces" },
+        { "include": "#boolean" },
+        { "include": "#nullValue" },
+        { "include": "#string" },
+        {
+          "begin": "\\bend\\b",
+          "end": "$",
+          "beginCaptures": { "0": { "name": "keyword.control.diagram" } },
+          "patterns": []
+        }
+      ]
+    },
+    "assignList": {
+      "patterns": [
+        {
+          "match": "(.+),(((?<=,)(.)+))",
+          "captures": {
+            "1": { "patterns": [{ "include": "#assignList" }] },
+            "2": { "patterns": [{ "include": "#assign" }] }
+          }
+        },
+        { "include": "#assign" }
+      ]
+    },
+    "assign": {
+      "patterns": [
+        {
+          "match": "(.+)(/)(.+)",
+          "captures": {
+            "1": { "patterns": [{ "include": "#entity" }] },
+            "2": { "name": "keyword.operator.diagram" },
+            "3": { "patterns": [{ "include": "#entity" }] }
+          }
+        }
+      ]
+    },
+    "txt": {
+      "patterns": [
+        {
+          "match": "(/\\*.+\\*/)*(((?<=\\*/).)+(.(?!/\\*|//))+)(.*)",
+          "captures": {
+            "1": { "patterns": [{ "include": "#txt" }] },
+            "2": { "name": "string.quoted.other.diagram" },
+            "5": { "patterns": [{ "include": "#txt" }] }
+          }
+        },
+        { "include": "#comments" },
+        {
+          "match": "(((?<!\\*/).(?!/\\*|//))+)(.*)",
+          "captures": {
+            "1": { "name": "string.quoted.other.diagram" },
+            "3": { "patterns": [{ "include": "#txt" }] }
+          }
+        }
+      ]
+    },
+    "entity": {
+      "patterns": [
+        {
+          "match": "(/\\*.+\\*/)*(((?<=\\*/).)+(.(?!/\\*|//))+)(.*)",
+          "captures": {
+            "1": { "patterns": [{ "include": "#entity" }] },
+            "2": { "name": "meta.class.identifier.diagram" },
+            "5": { "patterns": [{ "include": "#entity" }] }
+          }
+        },
+        { "include": "#comments" },
+        {
+          "match": "(((?<!\\*/).(?!/\\*|//))+)(.*)",
+          "captures": {
+            "1": { "name": "meta.class.identifier.diagram" },
+            "3": { "patterns": [{ "include": "#entity" }] }
+          }
+        }
+      ]
+    },
+    "nullValue": {
+      "match": "(?<!\\.)\\b(null)(?!\\s*:)\\b",
+      "name": "constant.language.null.diagram"
+    },
+    "boolean": {
+      "match": "(?<!\\.)\\b(true|false)(?!\\s*:)\\b",
+      "name": "constant.language.boolean.$1.diagram"
+    },
+    "string": {
+      "begin": "\"",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.begin.diagram"
+        }
+      },
+      "end": "\"",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.string.end.diagram"
+        }
+      },
+      "name": "string.quoted.double.diagram",
+      "patterns": [{ "include": "#string_escapes" }]
+    },
+    "curlyBraces": { "match": "{|}", "name": "meta.brace.curly.diagram" },
+    "squareBraces": {
+      "match": "\\[|\\]",
+      "name": "meta.brace.square.diagram"
+    },
+    "comments": {
+      "patterns": [
+        {
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.comment.begin.diagram"
+            },
+            "2": {
+              "name": "punctuation.definition.comment.end.diagram"
+            }
+          },
+          "match": "(/\\*)(\\*/)",
+          "name": "comment.block.empty.diagram"
+        },
+        {
+          "begin": "/\\*",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.begin.diagram"
+            }
+          },
+          "end": "\\*/",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.end.diagram"
+            }
+          },
+          "name": "comment.block.diagram"
+        },
+        {
+          "begin": "//",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.diagram"
+            }
+          },
+          "end": "$",
+          "contentName": "comment.line.double-slash.diagram"
+        }
+      ]
+    },
+    "string_escapes": {
+      "patterns": [
+        {
+          "match": "\\\\u(?![A-Fa-f0-9]{4}|{[A-Fa-f0-9]+})[^'\"]*",
+          "name": "invalid.illegal.unicode-escape.diagram"
+        },
+        {
+          "match": "\\\\u(?:[A-Fa-f0-9]{4}|({)([A-Fa-f0-9]+)(}))",
+          "name": "constant.character.escape.diagram",
+          "captures": {
+            "1": {
+              "name": "punctuation.definition.unicode-escape.begin.bracket.curly.diagram"
+            },
+            "2": {
+              "patterns": [
+                {
+                  "match": "[A-Fa-f\\d]{7,}|(?!10)[A-Fa-f\\d]{6}",
+                  "name": "invalid.illegal.unicode-escape.diagram"
+                }
+              ]
+            },
+            "3": {
+              "name": "punctuation.definition.unicode-escape.end.bracket.curly.diagram"
+            }
+          }
+        },
+        {
+          "match": "\\\\(x[0-9A-Fa-f]{2}|[0-2][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.)",
+          "name": "constant.character.escape.diagram"
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "match": "\\b(?<!\\$)0(x|X)[0-9a-fA-F]+\\b(?!\\$)",
+          "name": "constant.numeric.hex.diagram"
+        },
+        {
+          "match": "\\b(?<!\\$)0(b|B)[01]+\\b(?!\\$)",
+          "name": "constant.numeric.binary.diagram"
+        },
+        {
+          "match": "\\b(?<!\\$)0(o|O)?[0-7]+\\b(?!\\$)",
+          "name": "constant.numeric.octal.diagram"
+        },
+        {
+          "match": "(?x)\n(?<!\\$)(?:\n  (?:\\b[0-9]+(\\.)[0-9]+[eE][+-]?[0-9]+\\b)| # 1.1E+3\n  (?:\\b[0-9]+(\\.)[eE][+-]?[0-9]+\\b)|       # 1.E+3\n  (?:\\B(\\.)[0-9]+[eE][+-]?[0-9]+\\b)|       # .1E+3\n  (?:\\b[0-9]+[eE][+-]?[0-9]+\\b)|            # 1E+3\n  (?:\\b[0-9]+(\\.)[0-9]+\\b)|                # 1.1\n  (?:\\b[0-9]+(\\.)\\B)|                      # 1.\n  (?:\\B(\\.)[0-9]+\\b)|                      # .1\n  (?:\\b[0-9]+\\b(?!\\.))                     # 1\n)(?!\\$)",
+          "captures": {
+            "0": { "name": "constant.numeric.decimal.diagram" },
+            "1": {
+              "name": "meta.delimiter.decimal.period.diagram"
+            },
+            "2": {
+              "name": "meta.delimiter.decimal.period.diagram"
+            },
+            "3": {
+              "name": "meta.delimiter.decimal.period.diagram"
+            },
+            "4": {
+              "name": "meta.delimiter.decimal.period.diagram"
+            },
+            "5": {
+              "name": "meta.delimiter.decimal.period.diagram"
+            },
+            "6": {
+              "name": "meta.delimiter.decimal.period.diagram"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "scopeName": "source.diagram"
+}
