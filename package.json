@@ -7,6 +7,7 @@
     "vscode": "^1.45.0"
   },
   "publisher": "sdrubolo",
+  "repository": "https://github.com/sdrubolo/sequence-diagram-vscode",
   "categories": [
     "Programming Languages"
   ],
