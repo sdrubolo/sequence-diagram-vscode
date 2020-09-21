@@ -18,13 +18,12 @@
           "beginCaptures": { "0": { "name": "keyword.control.diagram" } },
           "patterns": [
             {
-              "match": "(.+)(\\[)(.*)(\\])(.*)",
+              "match": "(.+)(\\[)(.*)(\\])",
               "captures": {
                 "1": { "patterns": [{ "include": "#entity" }] },
                 "2": { "name": "meta.brace.square.diagram" },
                 "3": { "patterns": [{ "include": "#txt" }] },
-                "4": { "name": "meta.brace.square.diagram" },
-                "5": { "patterns": [{ "include": "#comments" }] }
+                "4": { "name": "meta.brace.square.diagram" }
               }
             },
             {
@@ -220,7 +219,6 @@
           "beginCaptures": { "0": { "name": "keyword.control.diagram" } },
           "endCaptures": { "0": { "name": "keyword.control.diagram" } },
           "patterns": [
-            { "include": "#comments" },
             { "include": "#squareBraces" },
             { "include": "#string" },
             { "include": "#curlyBraces" },
@@ -296,7 +294,6 @@
             "5": { "patterns": [{ "include": "#txt" }] }
           }
         },
-        { "include": "#comments" },
         {
           "match": "(((?<!\\*/).(?!/\\*|//))+)(.*)",
           "captures": {
@@ -316,7 +313,6 @@
             "5": { "patterns": [{ "include": "#entity" }] }
           }
         },
-        { "include": "#comments" },
         {
           "match": "(((?<!\\*/).(?!/\\*|//))+)(.*)",
           "captures": {
@@ -358,34 +354,7 @@
     "comments": {
       "patterns": [
         {
-          "captures": {
-            "1": {
-              "name": "punctuation.definition.comment.begin.diagram"
-            },
-            "2": {
-              "name": "punctuation.definition.comment.end.diagram"
-            }
-          },
-          "match": "(/\\*)(\\*/)",
-          "name": "comment.block.empty.diagram"
-        },
-        {
-          "begin": "/\\*",
-          "beginCaptures": {
-            "0": {
-              "name": "punctuation.definition.comment.begin.diagram"
-            }
-          },
-          "end": "\\*/",
-          "endCaptures": {
-            "0": {
-              "name": "punctuation.definition.comment.end.diagram"
-            }
-          },
-          "name": "comment.block.diagram"
-        },
-        {
-          "begin": "//",
+          "begin": "#",
           "beginCaptures": {
             "0": {
               "name": "punctuation.definition.comment.diagram"
